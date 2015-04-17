@@ -1,0 +1,101 @@
+[{
+    "category": "Children (0-14)",
+    "data": [
+      {
+        "type": "Leukaemias",
+        "percentage": 0.280,
+        "count": 175
+      }, {
+        "type": "Brain",
+        "percentage": 0.258,
+        "count": 161
+      }, {
+        "type": "Melanoma",
+        "percentage": 0.008,
+        "count": 5
+      }, {
+        "type": "Colorectal",
+        "percentage": 0.010,
+        "count": 6
+      }, {
+        "type": "Breast",
+        "percentage": 0.000,
+        "count": 0
+      }, {
+        "type": "Lung",
+        "percentage": 0.000,
+        "count": 0
+      }, {
+        "type": "Others",
+        "percentage": 0.444,
+        "count": 277
+      }
+    ]
+  }, {
+    "category": "Mid Adults (25-49)",
+    "data": [
+      {
+        "type": "Leukaemias",
+        "percentage": 0.016,
+        "count": 315
+      }, {
+        "type": "Brain",
+        "percentage": 0.020,
+        "count": 393
+      }, {
+        "type": "Melanoma",
+        "percentage": 0.089,
+        "count": 1737
+      }, {
+        "type": "Colorectal",
+        "percentage": 0.050,
+        "count": 984
+      }, {
+        "type": "Breast",
+        "percentage": 0.446,
+        "count": 8752
+      }, {
+        "type": "Lung",
+        "percentage": 0.029,
+        "count": 570
+      }, {
+        "type": "Others",
+        "percentage": 0.350,
+        "count": 6852
+      }
+    ]
+  }, {
+    "category": "Older Adults (50-74)",
+    "data": [
+      {
+        "type": "Leukaemias",
+        "percentage": 0.016,
+        "count": 1174
+      }, {
+        "type": "Brain",
+        "percentage": 0.013,
+        "count": 943
+      }, {
+        "type": "Melanoma",
+        "percentage": 0.034,
+        "count": 2530
+      }, {
+        "type": "Colorectal",
+        "percentage": 0.107,
+        "count": 7992
+      }, {
+        "type": "Breast",
+        "percentage": 0.346,
+        "count": 25834
+      }, {
+        "type": "Lung",
+        "percentage": 0.120,
+        "count": 8996
+      }, {
+        "type": "Others",
+        "percentage": 0.364,
+        "count": 27164
+      }
+    ]
+  }
+]
