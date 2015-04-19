@@ -3,6 +3,18 @@ body {
   color: white;
 }
 
+svg#main > g > rect.bg {
+  fill: #B2FFFF;
+}
+
+svg#main > g > rect.bg-even {
+  fill-opacity: 0.015;
+}
+
+svg#main > g > rect:not(bg-even) {
+  fill-opacity: 0.03;
+}
+
 svg#main text {
   fill: white;
   font-size: 10px;
@@ -10,7 +22,12 @@ svg#main text {
 }
 
 svg#main text.header {
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+svg#main text.type {
+  font-size: 10px;
   font-weight: bold;
 }
 
