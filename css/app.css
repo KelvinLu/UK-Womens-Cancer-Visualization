@@ -3,14 +3,24 @@ body {
   color: white;
 }
 
-@media only screen and (min-height: 40em) {
-  div.row {
-    min-height: 50vh;
-  }
+svg#main text {
+  fill: white;
+  font-size: 10px;
+  font-family: 'Roboto', sans-serif;
 }
 
-@media only screen and (max-height: 40em) {
-  div.row {
-    min-height: 40em;
-  }
+svg#main text.header {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+svg#main text.percent {
+  fill: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+svg#main text.count {
+  fill: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
 }

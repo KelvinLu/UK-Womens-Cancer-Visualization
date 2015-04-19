@@ -1,6 +1,6 @@
 [{
     "category": "Children (0-14)",
-    "data": [
+    "cancers": [
       {
         "type": "Leukaemias",
         "percentage": 0.280,
@@ -33,7 +33,7 @@
     ]
   }, {
     "category": "Mid Adults (25-49)",
-    "data": [
+    "cancers": [
       {
         "type": "Leukaemias",
         "percentage": 0.016,
@@ -66,7 +66,7 @@
     ]
   }, {
     "category": "Older Adults (50-74)",
-    "data": [
+    "cancers": [
       {
         "type": "Leukaemias",
         "percentage": 0.016,
