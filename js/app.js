@@ -10,22 +10,28 @@ main = function() {
   var svg = document.getElementById('svg-container');
 
   var width = svg.clientWidth,
-    height = document.body.clientHeight - 10,
+    height = svg.clientHeight - 10,
 
-    padding = 0.1;
-    paddedWidth = width * (1 - padding);
-    paddingWidth  = width * (padding) * 0.5;
+    categoryWidth = width / data.length;
 
-    graphWidth = (paddedWidth * 0.5);
-    graphWidthOffset = paddedWidth - graphWidth;
+    padding = 0.2;
 
-    barWidth = graphWidth / Math.max.apply(null, data.map(function(d, i) { return d.cancers.length; }));
+    chartWidth = categoryWidth;
+    chartHeight = height * 0.4;
+
+    paddedChartWidth = chartWidth * (1 - padding);
+    paddedChartHeight = chartHeight * (1 - padding);
+    paddingChartWidth = chartWidth * padding * 0.5;
+    paddingChartHeight = chartHeight * padding * 0.5;
+
+    figureHeight = height - chartHeight;
+
+    barWidth = paddedChartWidth / Math.max.apply(null, data.map(function(d, i) { return d.cancers.length; }));
     barShrinkage = 0.66;
     barShrinkageComplement = 1 - barShrinkage;
 
-    categoryHeight = height / data.length;
-    barHeight = categoryHeight * 0.667;
-    barPadding = (categoryHeight - barHeight) * 0.5;
+    barHeight = paddedChartHeight * 0.75;
+    barPadding = (paddedChartHeight - barHeight) * 0.5;
 
   var maxPercent = Math.max.apply(null, data.map(function(d, i) {
     return Math.max.apply(null, d.cancers.map(function(d, i) { return d.percentage; }));
@@ -68,13 +74,13 @@ main = function() {
     .data(data)
     .enter()
     .append("g")
-    .attr("width", width)
-    .attr("height", categoryHeight)
-    .attr("transform", function(d, i) { return "translate(0, " + i * categoryHeight + ")"; })
+    .attr("width", height)
+    .attr("height", categoryWidth)
+    .attr("transform", function(d, i) { return "translate(" + i * categoryWidth + ", 0)"; })
 
   var categoryBg = category.append("rect")
-    .attr("width", width)
-    .attr("height", categoryHeight)
+    .attr("width", categoryWidth)
+    .attr("height", height)
     .attr("class", "bg")
     .classed("bg-even", everyOdd);
 
@@ -87,8 +93,8 @@ main = function() {
 
   var categoryLabel = category.append("text")
     .text(function(d, i) { return d.category; })
-    .attr("dx", paddingWidth)
-    .attr("dy", "40px")
+    .attr("dx", 20)
+    .attr("dy", figureHeight)
     .attr("class", "header");
 
   // Figures
@@ -97,7 +103,7 @@ main = function() {
 
   var bodyFigureSVG = document.getElementById('body-figure').innerHTML;
 
-  figures.attr("transform", function(d, i) { return "translate(" + paddingWidth + ", 0)"; });
+  figures.attr("transform", function(d, i) { return "translate(" + 0.0 + ", 0)"; });
 
   var markOrganFigures = function(bodyFigure) {
     bodyFigure.each(function(d, i) {
@@ -114,9 +120,10 @@ main = function() {
   };
 
   var bodyFigure = figures.append("svg")
-    .attr("width", graphWidthOffset)
-    .attr("height", categoryHeight)
+    .attr("width", categoryWidth)
+    .attr("height", figureHeight)
     .attr("viewBox", "0 0 745 1051")
+    .attr("class", "body-figure")
     .html(bodyFigureSVG)
     .call(markOrganFigures);
 
@@ -124,18 +131,19 @@ main = function() {
   //
   //
 
-  charts.attr("transform", function(d, i) { return "translate(" + (paddingWidth + graphWidthOffset) + ", 0)"; })
+  charts.attr("transform", function(d, i) { return "translate(" + paddingChartWidth + ", " + (paddingChartHeight + figureHeight) + ")"; })
 
   var yAxis = charts.append("g")
     .attr("transform", "translate(0, " + barPadding + ")")
     .attr("class", "axis")
+    .classed("first", function(d, i) { console.log(!i); return !i; })
     .call(
       d3.svg.axis()
       .scale(unityScaleInv)
       .orient("left")
       .tickFormat(percentageFormatWhole)
       .ticks(5)
-      .tickSize(-graphWidth)
+      .tickSize(-chartWidth)
     );
 
   var rect = charts.append("g").selectAll("rect")
@@ -156,10 +164,9 @@ main = function() {
     .enter()
     .append("text")
     .text(function(d, i) { return d.type; })
-    .attr("dx", barWidth * barShrinkageComplement * 0.5)
-    .attr("dy", 15)
     .attr("x", function(d, i) { return i * barWidth; })
     .attr("y", barPadding + barHeight)
+    .attr("transform", function(d, i) { return "rotate(30 " + (i * barWidth) + ", " + (barPadding + barHeight) + "), translate(20, 5)"; })
     .attr("class", "type");
 
   cancerPercentageLabel.data(function(d, i) { return d.cancers; })
@@ -184,7 +191,7 @@ main = function() {
 
   var baseline = charts.append("g").append("line")
     .attr("x1", 0)
-    .attr("x2", function(d, i) { return graphWidth; })
+    .attr("x2", function(d, i) { return paddedChartWidth; })
     .attr("y1", barPadding + barHeight)
     .attr("y2", barPadding + barHeight)
     .attr("class", "tick-line baseline");

@@ -3,11 +3,16 @@ body {
   color: white;
 }
 
-div.row {
+div#svg-container {
    width: 100%;
+   height: 100%;
    margin-left: auto;
    margin-right: auto;
    max-width: initial;
+}
+
+svg#main {
+  width: 100%;
 }
 
 svg#main > g > rect.bg {
@@ -34,23 +39,20 @@ svg#main text.header {
 }
 
 svg#main text.type {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
 }
 
 svg#main text.percent {
-  fill: white;
   font-weight: bold;
-  font-size: 12px;
 }
 
 svg#main text.count {
-  fill: rgba(255, 255, 255, 0.5);
-  font-size: 10px;
+  fill: rgba(255, 255, 255, 0.4);
 }
 
 svg#main .baseline {
-  stroke: rgba(255, 255, 255, 0.5);
+  stroke: rgba(255, 255, 255, 0.4);
   stroke-width: 2;
 }
 
@@ -65,5 +67,9 @@ svg#main .axis line {
 }
 
 svg#main .axis text {
-  fill: rgba(255, 255, 255, 0.2);
+  fill: rgba(255, 255, 255, 0.4);
+}
+
+svg#main .axis:not(.first) text {
+  display: none;
 }
