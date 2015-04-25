@@ -10,12 +10,18 @@ main = function() {
   var svg = document.getElementById('svg-container');
 
   var width = svg.clientWidth,
-    height = 800,
+    height = document.body.clientHeight - 10,
 
-    graphWidth = width * 0.5;
-    graphWidthOffset = width - graphWidth;
+    padding = 0.1;
+    paddedWidth = width * (1 - padding);
+    paddingWidth  = width * (padding) * 0.5;
+
+    graphWidth = (paddedWidth * 0.5);
+    graphWidthOffset = paddedWidth - graphWidth;
 
     barWidth = graphWidth / Math.max.apply(null, data.map(function(d, i) { return d.cancers.length; }));
+    barShrinkage = 0.66;
+    barShrinkageComplement = 1 - barShrinkage;
 
     categoryHeight = height / data.length;
     barHeight = categoryHeight * 0.667;
@@ -33,16 +39,22 @@ main = function() {
     .domain([0, maxPercent])
     .range([0, barHeight]);
 
+  var unityScaleInv = d3.scale.linear()
+    .domain([0, maxPercent])
+    .range([barHeight, 0]);
+
   var opacityScale = d3.scale.pow()
     .domain([0, maxPercent])
     .range([0, 1]);
 
   var colorScale = d3.scale.ordinal()
-    .range(colorbrewer.GnBu[numCancers] || colorbrewer.GnBu[3]);
+    .range(colorbrewer.Greys[numCancers] || colorbrewer.Greys[3]);
 
   var everyOdd = function(d, i){ return i % 2; };
 
   var percentageFormat = d3.format("3.1%");
+
+  var percentageFormatWhole = d3.format("3%");
 
   // Regions
   //
@@ -63,7 +75,7 @@ main = function() {
   var categoryBg = category.append("rect")
     .attr("width", width)
     .attr("height", categoryHeight)
-    .classed("bg", true)
+    .attr("class", "bg")
     .classed("bg-even", everyOdd);
 
   var charts = category.append("g");
@@ -75,9 +87,9 @@ main = function() {
 
   var categoryLabel = category.append("text")
     .text(function(d, i) { return d.category; })
-    .attr("dx", "5px")
-    .attr("dy", "20px")
-    .classed("header", true);
+    .attr("dx", paddingWidth)
+    .attr("dy", "40px")
+    .attr("class", "header");
 
   // Figures
   //
@@ -85,7 +97,7 @@ main = function() {
 
   var bodyFigureSVG = document.getElementById('body-figure').innerHTML;
 
-  figures.attr("transform", function(d, i) { return "translate(0, 0)"; });
+  figures.attr("transform", function(d, i) { return "translate(" + paddingWidth + ", 0)"; });
 
   var markOrganFigures = function(bodyFigure) {
     bodyFigure.each(function(d, i) {
@@ -93,7 +105,7 @@ main = function() {
       for (var i = 0; i < cancers.length; ++i) {
         cancer = cancers[i];
         if (figure = this.querySelector("#" + cancer.type.toLowerCase() + " path")) {
-          figure.style.fill = colorScale(i);
+          figure.style.fill = "white";
           figure.style.fillOpacity = opacityScale(cancer.percentage);
         }
       }
@@ -112,50 +124,68 @@ main = function() {
   //
   //
 
-  charts.attr("transform", function(d, i) { return "translate(" + graphWidthOffset + ", 0)"; })
+  charts.attr("transform", function(d, i) { return "translate(" + (paddingWidth + graphWidthOffset) + ", 0)"; })
 
-  var rect = charts.selectAll("rect")
-    .data(function(d, i) { return d.cancers;})
+  var yAxis = charts.append("g")
+    .attr("transform", "translate(0, " + barPadding + ")")
+    .attr("class", "axis")
+    .call(
+      d3.svg.axis()
+      .scale(unityScaleInv)
+      .orient("left")
+      .tickFormat(percentageFormatWhole)
+      .ticks(5)
+      .tickSize(-graphWidth)
+    );
+
+  var rect = charts.append("g").selectAll("rect")
+    .data(function(d, i) { return d.cancers; })
     .enter()
     .append("rect")
-    .attr("width", barWidth)
+    .attr("width", barWidth * barShrinkage)
     .attr("height", function(d, i) { return unityScale(d.percentage); })
-    .attr("x", function(d, i) { return i * barWidth; })
+    .attr("x", function(d, i) { return (i + barShrinkageComplement * 0.5) * barWidth; })
     .attr("y", function(d, i) { return barPadding + barHeight - unityScale(d.percentage); })
     .attr("fill", function(d, i) { return colorScale(i); });
 
-  var cancerTypeLabel = charts.selectAll("text");
-  var cancerPercentageLabel = charts.selectAll("text");
-  var cancerCountLabel = charts.selectAll("text");
+  var cancerTypeLabel = charts.append("g").selectAll("text");
+  var cancerPercentageLabel = charts.append("g").selectAll("text");
+  var cancerCountLabel = charts.append("g").selectAll("text");
 
   cancerTypeLabel.data(function(d, i) { return d.cancers; })
     .enter()
     .append("text")
     .text(function(d, i) { return d.type; })
-    .attr("dx", "5px")
-    .attr("dy", "15px")
+    .attr("dx", barWidth * barShrinkageComplement * 0.5)
+    .attr("dy", 15)
     .attr("x", function(d, i) { return i * barWidth; })
     .attr("y", barPadding + barHeight)
-    .classed("type", true);
+    .attr("class", "type");
 
   cancerPercentageLabel.data(function(d, i) { return d.cancers; })
     .enter()
     .append("text")
     .text(function(d, i) { return percentageFormat(d.percentage); })
-    .attr("dx", "5px")
+    .attr("dx", barWidth * barShrinkageComplement * 0.5)
     .attr("dy", "-20px")
     .attr("x", function(d, i) { return i * barWidth; })
     .attr("y", function(d, i) { return barPadding + barHeight - unityScale(d.percentage); })
-    .classed("percent", true);
+    .attr("class", "percent");
 
   cancerCountLabel.data(function(d, i) { return d.cancers; })
     .enter()
     .append("text")
     .text(function(d, i) { return d.count; })
-    .attr("dx", "5px")
+    .attr("dx", barWidth * barShrinkageComplement * 0.5)
     .attr("dy", "-5px")
     .attr("x", function(d, i) { return i * barWidth; })
     .attr("y", function(d, i) { return barPadding + barHeight - unityScale(d.percentage); })
-    .classed("count", true);
+    .attr("class", "count");
 
+  var baseline = charts.append("g").append("line")
+    .attr("x1", 0)
+    .attr("x2", function(d, i) { return graphWidth; })
+    .attr("y1", barPadding + barHeight)
+    .attr("y2", barPadding + barHeight)
+    .attr("class", "tick-line baseline");
 }

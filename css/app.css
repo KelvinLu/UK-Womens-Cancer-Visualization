@@ -3,6 +3,13 @@ body {
   color: white;
 }
 
+div.row {
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+   max-width: initial;
+}
+
 svg#main > g > rect.bg {
   fill: #B2FFFF;
 }
@@ -40,4 +47,23 @@ svg#main text.percent {
 svg#main text.count {
   fill: rgba(255, 255, 255, 0.5);
   font-size: 10px;
+}
+
+svg#main .baseline {
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 2;
+}
+
+svg#main .axis path {
+  fill: none;
+}
+
+svg#main .axis line {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1;
+}
+
+svg#main .axis text {
+  fill: rgba(255, 255, 255, 0.2);
 }
