@@ -14,7 +14,7 @@ main = function() {
 
     categoryWidth = width / data.length;
 
-    padding = 0.2;
+    padding = 0.33;
 
     chartWidth = categoryWidth;
     chartHeight = height * 0.4;
@@ -93,7 +93,7 @@ main = function() {
 
   var categoryLabel = category.append("text")
     .text(function(d, i) { return d.category; })
-    .attr("dx", 20)
+    .attr("dx", paddingChartWidth)
     .attr("dy", figureHeight)
     .attr("class", "header");
 
@@ -111,7 +111,7 @@ main = function() {
       for (var i = 0; i < cancers.length; ++i) {
         cancer = cancers[i];
         if (figure = this.querySelector("#" + cancer.type.toLowerCase() + " path")) {
-          figure.style.fill = "#084594";
+          figure.style.fill = "#F20C00";
           figure.style.fillOpacity = opacityScale(cancer.percentage);
         }
       }

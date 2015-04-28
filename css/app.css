@@ -1,14 +1,38 @@
 body {
+  font-family: 'Roboto', sans-serif;
+
   background-color: rgb(11, 18, 21);
   color: white;
 }
 
+div.full-row {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: initial;
+}
+
+div#header-container {
+  height: 20%;
+}
+
 div#svg-container {
-   width: 100%;
-   height: 100%;
-   margin-left: auto;
-   margin-right: auto;
-   max-width: initial;
+  height: 80%;
+}
+
+h2#work-title {
+  color: white;
+  font-weight: 700;
+}
+
+p#description {
+  font-weight: 700;
+}
+
+p#attribution {
+  text-align: right;
+  font-size: 0.8em;
+  opacity: 0.4;
 }
 
 svg#main {
@@ -16,8 +40,9 @@ svg#main {
 }
 
 svg#main > g > rect.bg {
-  fill: #B2FFFF;
+  fill: rgb(11, 18, 21);
 }
+
 
 svg#main > g > rect.bg-even {
   fill-opacity: 0.015;
@@ -26,6 +51,7 @@ svg#main > g > rect.bg-even {
 svg#main > g > rect:not(bg-even) {
   fill-opacity: 0.03;
 }
+
 
 svg#main text {
   fill: white;
