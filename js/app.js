@@ -111,7 +111,7 @@ main = function() {
       for (var i = 0; i < cancers.length; ++i) {
         cancer = cancers[i];
         if (figure = this.querySelector("#" + cancer.type.toLowerCase() + " path")) {
-          figure.style.fill = "white";
+          figure.style.fill = "#084594";
           figure.style.fillOpacity = opacityScale(cancer.percentage);
         }
       }
