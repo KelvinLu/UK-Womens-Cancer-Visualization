@@ -41,6 +41,10 @@ main = function() {
     return d.cancers.length;
   }));
 
+  var maxTotal = Math.max.apply(null, data.map(function(d, i) {
+    return d.totalcount;
+  }));
+
   var unityScale = d3.scale.linear()
     .domain([0, maxPercent])
     .range([0, barHeight]);
@@ -74,8 +78,6 @@ main = function() {
     .data(data)
     .enter()
     .append("g")
-    .attr("width", height)
-    .attr("height", categoryWidth)
     .attr("transform", function(d, i) { return "translate(" + i * categoryWidth + ", 0)"; })
 
   var categoryBg = category.append("rect")
@@ -86,6 +88,7 @@ main = function() {
 
   var charts = category.append("g");
   var figures = category.append("g");
+  var totals = category.append("g");
 
   // Categories
   //
@@ -96,6 +99,12 @@ main = function() {
     .attr("dx", paddingChartWidth)
     .attr("dy", figureHeight)
     .attr("class", "header");
+
+  var textTotal = category.append("text")
+    .text(function(d, i) { return (d.totalcount).toString() + " total cancer cases" ; })
+    .attr("dx", paddingChartWidth)
+    .attr("dy", figureHeight + 12)
+    .attr("class", "count");
 
   // Figures
   //

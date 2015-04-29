@@ -1,5 +1,6 @@
 [{
     "category": "Children (0-14)",
+    "totalcount": 624,
     "cancers": [
       {
         "type": "Leukaemias",
@@ -33,6 +34,7 @@
     ]
   }, {
     "category": "Mid Adults (25-49)",
+    "totalcount": 19603,
     "cancers": [
       {
         "type": "Leukaemias",
@@ -66,6 +68,7 @@
     ]
   }, {
     "category": "Older Adults (50-74)",
+    "totalcount": 74633,
     "cancers": [
       {
         "type": "Leukaemias",
