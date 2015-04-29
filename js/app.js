@@ -54,7 +54,7 @@ main = function() {
     .range([0, 1]);
 
   var colorScale = d3.scale.ordinal()
-    .range(colorbrewer.Greys[numCancers] || colorbrewer.Greys[3]);
+    .range(colorbrewer.Greys[numCancers + 2].slice(2, 2 + numCancers));
 
   var everyOdd = function(d, i){ return i % 2; };
 

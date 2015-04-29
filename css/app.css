@@ -1,8 +1,8 @@
 body {
   font-family: 'Roboto', sans-serif;
 
-  background-color: rgb(11, 18, 21);
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: black;
 }
 
 div.full-row {
@@ -21,7 +21,6 @@ div#svg-container {
 }
 
 h2#work-title {
-  color: white;
   font-weight: 700;
 }
 
@@ -45,16 +44,16 @@ svg#main > g > rect.bg {
 
 
 svg#main > g > rect.bg-even {
-  fill-opacity: 0.015;
+  fill-opacity: 0.01;
 }
 
 svg#main > g > rect:not(bg-even) {
-  fill-opacity: 0.03;
+  fill-opacity: 0.02;
 }
 
 
 svg#main text {
-  fill: white;
+  fill: black;
   font-size: 10px;
   font-family: 'Roboto', sans-serif;
 }
@@ -74,11 +73,11 @@ svg#main text.percent {
 }
 
 svg#main text.count {
-  fill: rgba(255, 255, 255, 0.4);
+  fill: rgba(0, 0, 0, 0.6);
 }
 
 svg#main .baseline {
-  stroke: rgba(255, 255, 255, 0.4);
+  stroke: rgba(0, 0, 0, 0.2);
   stroke-width: 2;
 }
 
@@ -88,12 +87,12 @@ svg#main .axis path {
 
 svg#main .axis line {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.1);
+  stroke: rgba(0, 0, 0, 0.2);
   stroke-width: 1;
 }
 
 svg#main .axis text {
-  fill: rgba(255, 255, 255, 0.4);
+  fill: rgba(0, 0, 0, 0.6);
 }
 
 svg#main .axis:not(.first) text {
